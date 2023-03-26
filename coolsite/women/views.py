@@ -3,13 +3,32 @@ from django.http import HttpResponse,HttpResponseNotFound,HttpResponseServerErro
 from .models import *
 # Create your views here.
 
-menu = ["О сайте", "Добавить статью", "Обратная связь", "Войти"]
+menu = [{'title': "О сайте", 'url_name': 'about'},
+        {'title': "Добавить статью", 'url_name': 'add_page'},
+        {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Войти", 'url_name': 'login'}
+]
 
 def index(request):
     posts=Women.objects.all()
-    return render(request,'women/index.html',{'posts':posts,'menu':menu,'title':'Главная страница'})
+    context = {
+        'posts': posts,
+        'menu': menu,
+        'title': 'Главная страница'
+    }
+    return render(request,'women/index.html',context=context)
 def about(request):
     return render(request,'women/about.html',{'menu':menu,'title':'О саите'})
+def addpage(request):
+    return HttpResponse('Добовление статьи')
+def contact(request):
+    return HttpResponse('Обратная связь')
+def login(request):
+    return HttpResponse('Авторизация')
+def show_post(request,post_id):
+    return HttpResponse(f'отоброжение статьи  id={post_id}')
+
+
 
 def categories(requast,catid):
     if requast.GET:
