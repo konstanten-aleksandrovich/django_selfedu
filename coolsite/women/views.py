@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,HttpResponseNotFound,HttpResponseServerError
 from .models import *
+from .forms import *
 # Create your views here.
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -22,7 +23,19 @@ def index(request):
 def about(request):
     return render(request,'women/about.html',{'menu':menu,'title':'О саите'})
 def addpage(request):
-    return HttpResponse('Добовление статьи')
+    if request.method=='POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            try:
+                Women.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None,'Ошибка добовления поста')
+    else:
+        form=AddPostForm()
+    return  render(request,'women/addpage.html',{'form':form,'menu':menu,'title':'Добовление статьи'})
+
 def contact(request):
     return HttpResponse('Обратная связь')
 def login(request):
