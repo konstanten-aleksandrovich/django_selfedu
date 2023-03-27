@@ -8,6 +8,7 @@ class WomenAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     list_editable=('is_published',)
     list_filter=('is_published','time_create')
+    prepopulated_fields = {'slug': ('title',)}
 
 admin.site.register(Women,WomenAdmin)
 
@@ -15,4 +16,5 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display=('id','name')
     list_display_linfs=('id','name')
     serch_fields=('name',)
+    prepopulated_fields={'slug':('name',)}
 admin.site.register(Category,CategoryAdmin)
