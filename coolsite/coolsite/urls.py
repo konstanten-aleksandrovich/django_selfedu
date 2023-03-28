@@ -18,7 +18,7 @@ from django.urls import path,include
 from django.conf.urls.static import static
 
 from coolsite import settings
-from women.views import index,categories,pageNotFound,ServerError
+from women.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
