@@ -13,7 +13,7 @@ class Women(models.Model):
     cat=models.ForeignKey('Category',on_delete=models.PROTECT,null=True,verbose_name='категория')
 
     class Meta:
-        verbose_name='Известные женщины'
+        verbose_name='Известные ateженщины'
         verbose_name_plural='Известные женщины'
         ordering=['-time_create','title']
 
